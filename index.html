@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Gullak</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sohne@1.0.0/sohne.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-poppins">
+  <!-- Alert Container -->
+  <div class="alert-container" id="alertContainer"></div>
+
+  <!-- Confirm Modal -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Confirm Action</div>
+        <button class="modal-close" onclick="hideModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        Are you sure you want to perform this action?
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn secondary" onclick="hideModal()">Cancel</button>
+        <button class="action-btn danger" id="confirmActionBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Method Edit Modal -->
+  <div class="modal-overlay" id="methodEditModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="methodModalTitle">Edit Method</div>
+        <button class="modal-close" onclick="hideModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Method Name</label>
+          <input type="text" id="editMethodName" placeholder="Enter method name">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn secondary" onclick="hideModal()">Cancel</button>
+        <button class="action-btn" id="saveMethodBtn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Selector Modal -->
+  <div class="modal-overlay" id="themeModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Select Theme</div>
+        <button class="modal-close" onclick="hideModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="theme-selector">
+          <div class="theme-option selected" data-theme="default" onclick="selectTheme('default')">
+            <div class="theme-thumbnail" style="background: linear-gradient(135deg, #4361ee, #3a0ca3);"></div>
+            <span>Default</span>
+          </div>
+          <div class="theme-option" data-theme="green" onclick="selectTheme('green')">
+            <div class="theme-thumbnail" style="background: linear-gradient(135deg, #2ecc71, #27ae60);"></div>
+            <span>Green</span>
+          </div>
+          <div class="theme-option" data-theme="purple" onclick="selectTheme('purple')">
+            <div class="theme-thumbnail" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);"></div>
+            <span>Purple</span>
+          </div>
+          <div class="theme-option" data-theme="orange" onclick="selectTheme('orange')">
+            <div class="theme-thumbnail" style="background: linear-gradient(135deg, #e67e22, #d35400);"></div>
+            <span>Orange</span>
+          </div>
+          <div class="theme-option" data-theme="pink" onclick="selectTheme('pink')">
+            <div class="theme-thumbnail" style="background: linear-gradient(135deg, #e84393, #fd79a8);"></div>
+            <span>Pink</span>
+          </div>
+          <div class="theme-option" data-theme="teal" onclick="selectTheme('teal')">
+            <div class="theme-thumbnail" style="background: linear-gradient(135deg, #00cec9, #0984e3);"></div>
+            <span>Teal</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn" onclick="hideModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Font Selector Modal -->
+  <div class="modal-overlay" id="fontModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Select Font</div>
+        <button class="modal-close" onclick="hideModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="font-selector">
+          <div class="font-option font-poppins selected" data-font="poppins" onclick="selectFont('poppins')">
+            Poppins
+          </div>
+          <div class="font-option font-montserrat" data-font="montserrat" onclick="selectFont('montserrat')">
+            Montserrat
+          </div>
+          <div class="font-option font-roboto" data-font="roboto" onclick="selectFont('roboto')">
+            Roboto
+          </div>
+          <div class="font-option font-opensans" data-font="opensans" onclick="selectFont('opensans')">
+            Open Sans
+          </div>
+          <div class="font-option font-sohne" data-font="sohne" onclick="selectFont('sohne')">
+            Sohne
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn" onclick="hideModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Home Section -->
+    <div id="homeSection">
+      <div class="header">
+        <div class="header-icon"><i class="fas fa-piggy-bank"></i></div>
+        Gullak - Your Digital Memory
+      </div>
+      
+      <div class="card animate-fadeIn">
+        <div class="card-title"><i class="fas fa-wallet"></i> Total Savings</div>
+        <div class="total-amount">₹<span id="totalAmount">0</span></div>
+        <div class="text-muted">Your financial journey</div>
+      </div>
+      
+      <div class="card animate-fadeIn">
+        <div class="card-title"><i class="fas fa-plus-circle"></i> Add New Saving</div>
+        <div class="form-group">
+          <input type="number" id="savingAmount" placeholder="Amount" inputmode="decimal">
+        </div>
+        <div class="form-group">
+          <textarea id="savingNote" placeholder="Note (Optional)" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <select id="savingMethod">
+            <option value="">Select Method</option>
+            <option value="Gullak">Gullak</option>
+            <option value="Bank">Bank</option>
+            <option value="Cash">Cash</option>
+          </select>
+        </div>
+        <button onclick="addSaving()"><i class="fas fa-save"></i> Add Saving</button>
+      </div>
+      
+      <div class="animate-fadeIn">
+        <div class="recent-activity-container">
+          <div class="card-title"><i class="fas fa-history"></i> Recent Activity</div>
+          <div id="recentActivity">
+            <div class="empty-activity">
+              <i class="fas fa-inbox"></i>
+              <p>No recent activity</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Section -->
+    <div id="historySection" class="hidden">
+      <div class="header">
+        <div class="header-icon"><i class="fas fa-history"></i></div>
+        Savings History
+      </div>
+      
+      <div class="card animate-fadeIn">
+        <div class="card-title"><i class="fas fa-filter"></i> Filter History</div>
+        <div class="history-controls">
+          <select id="sortMethod">
+            <option value="">All Methods</option>
+            <option value="Gullak">Gullak</option>
+            <option value="Bank">Bank</option>
+            <option value="Cash">Cash</option>
+          </select>
+          
+          <select id="sortMonth">
+            <option value="">All Months</option>
+            <option value="0">Jan</option>
+            <option value="1">Feb</option>
+            <option value="2">Mar</option>
+            <option value="3">Apr</option>
+            <option value="4">May</option>
+            <option value="5">Jun</option>
+            <option value="6">Jul</option>
+            <option value="7">Aug</option>
+            <option value="8">Sep</option>
+            <option value="9">Oct</option>
+            <option value="10">Nov</option>
+            <option value="11">Dec</option>
+          </select>
+          
+          <button onclick="sortHistory()"><i class="fas fa-filter"></i> Filter</button>
+        </div>
+        
+        <div class="method-totals" id="methodTotals"></div>
+        
+        <div class="history-table-container">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Amount</th>
+                <th>Date & Time</th>
+                <th>Method</th>
+                <th>Note</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="historyTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Games Section -->
+    <div id="gamesSection" class="hidden">
+      <!-- Content will be loaded dynamically by JavaScript -->
+    </div>
+
+    <!-- Settings Section -->
+    <div id="settingsSection" class="hidden">
+      <div class="header">
+        <div class="header-icon"><i class="fas fa-cog"></i></div>
+        App Settings
+      </div>
+      
+      <div class="card animate-fadeIn">
+        <div class="card-title"><i class="fas fa-money-bill-wave"></i> Manage Methods</div>
+        <div class="method-list" id="methodList"></div>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+          <input type="text" id="newMethodInput" placeholder="New method name" style="flex: 1;">
+          <button onclick="addNewMethod()"><i class="fas fa-plus"></i> Add</button>
+        </div>
+        
+        <div class="card-title" style="margin-top: 20px;"><i class="fas fa-palette"></i> Appearance</div>
+        <div class="settings-option">
+          <div class="settings-info">
+            <div class="settings-title">Dark Mode</div>
+            <div class="settings-desc">Toggle between dark and light mode</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="settings-option">
+          <div class="settings-info">
+            <div class="settings-title">Theme Color</div>
+            <div class="settings-desc">Choose your preferred color scheme</div>
+          </div>
+          <button onclick="showThemeModal()"><i class="fas fa-paint-brush"></i> Change Theme</button>
+        </div>
+        
+        <div class="settings-option">
+          <div class="settings-info">
+            <div class="settings-title">App Font</div>
+            <div class="settings-desc">Select your preferred font style</div>
+          </div>
+          <button onclick="showFontModal()"><i class="fas fa-font"></i> Change Font</button>
+        </div>
+        
+        <div class="card-title" style="margin-top: 20px;"><i class="fas fa-database"></i> Data Management</div>
+        <div class="settings-option">
+          <div class="settings-info">
+            <div class="settings-title">Export Data</div>
+            <div class="settings-desc">Backup your savings data</div>
+          </div>
+          <button onclick="exportData()"><i class="fas fa-file-export"></i> Export</button>
+        </div>
+        
+        <div class="settings-option">
+          <div class="settings-info">
+            <div class="settings-title">Import Data</div>
+            <div class="settings-desc">Restore from backup</div>
+          </div>
+          <input type="file" id="importFile" accept=".json" style="display: none;">
+          <button onclick="document.getElementById('importFile').click()"><i class="fas fa-file-import"></i> Import</button>
+        </div>
+        
+        <div class="settings-option">
+          <div class="settings-info">
+            <div class="settings-title">Reset Data</div>
+            <div class="settings-desc">Start fresh (irreversible)</div>
+          </div>
+          <button onclick="confirmReset()" style="background: var(--danger);"><i class="fas fa-trash"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation - Fixed Version -->
+  <div class="bottom-nav">
+    <div class="nav-item active" onclick="showSection('home')">
+      <div class="nav-indicator"></div>
+      <i class="fas fa-home nav-icon"></i>
+      <span class="nav-label">Home</span>
+    </div>
+    <div class="nav-item" onclick="showSection('history')">
+      <div class="nav-indicator"></div>
+      <i class="fas fa-chart-line nav-icon"></i>
+      <span class="nav-label">History</span>
+    </div>
+    <div class="nav-item" onclick="showSection('games')">
+      <div class="nav-indicator"></div>
+      <i class="fas fa-gamepad nav-icon"></i>
+      <span class="nav-label">Games</span>
+    </div>
+    <div class="nav-item" onclick="showSection('settings')">
+      <div class="nav-indicator"></div>
+      <i class="fas fa-cog nav-icon"></i>
+      <span class="nav-label">Settings</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
