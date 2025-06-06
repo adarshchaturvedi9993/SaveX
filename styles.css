@@ -1128,3 +1128,25 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
+/* Settings Info Links */
+.settings-option .info-link {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(var(--primary-rgb), 0.1);
+  color: var(--primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.settings-option .info-link:hover {
+  background: rgba(var(--primary-rgb), 0.2);
+  transform: translateY(-2px);
+}
+
+.settings-option .info-link i {
+  font-size: 0.9rem;
+}
