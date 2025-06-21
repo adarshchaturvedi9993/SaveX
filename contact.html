@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Contact Us - SaveX</title>
+  <meta name="description" content="Get in touch with the SaveX team. We're here to help with any questions or feedback.">
+  <meta name="keywords" content="contact, support, help, SaveX, feedback">
+  <meta name="author" content="Virgees AdarshDev Pvt Ltd">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#4361ee">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="SaveX">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="SaveX.png">
+  <link rel="apple-touch-icon" href="SaveX.png">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .contact-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .contact-header h1 {
+      color: var(--primary, #4361ee);
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    
+    .contact-header p {
+      color: var(--text-muted, #666);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    
+    .contact-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .contact-method {
+      background: var(--card-bg, #fff);
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid var(--border-color, #e0e0e0);
+    }
+    
+    .contact-method:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+    
+    .contact-method i {
+      font-size: 2.5rem;
+      color: var(--primary, #4361ee);
+      margin-bottom: 15px;
+    }
+    
+    .contact-method h3 {
+      color: var(--text-primary, #333);
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    
+    .contact-method p {
+      color: var(--text-muted, #666);
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    
+    .contact-method a {
+      color: var(--primary, #4361ee);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .contact-method a:hover {
+      color: var(--primary-dark, #3a0ca3);
+    }
+    
+    .contact-form {
+      background: var(--card-bg, #fff);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border: 1px solid var(--border-color, #e0e0e0);
+      margin-bottom: 40px;
+    }
+    
+    .contact-form h2 {
+      color: var(--text-primary, #333);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      color: var(--text-primary, #333);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border-color, #e0e0e0);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background: var(--input-bg, #fff);
+      color: var(--text-primary, #333);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary, #4361ee);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .submit-btn {
+      background: var(--primary, #4361ee);
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .submit-btn:hover {
+      background: var(--primary-dark, #3a0ca3);
+      transform: translateY(-2px);
+    }
+    
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--primary, #4361ee);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 30px;
+      transition: color 0.3s ease;
+    }
+    
+    .back-link:hover {
+      color: var(--primary-dark, #3a0ca3);
+    }
+    
+    .back-link i {
+      margin-right: 8px;
+    }
+    
+    .faq-section {
+      background: var(--card-bg, #fff);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border: 1px solid var(--border-color, #e0e0e0);
+    }
+    
+    .faq-section h2 {
+      color: var(--text-primary, #333);
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .faq-item {
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color, #e0e0e0);
+      padding-bottom: 20px;
+    }
+    
+    .faq-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    .faq-question {
+      color: var(--text-primary, #333);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    
+    .faq-answer {
+      color: var(--text-muted, #666);
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .contact-container {
+        padding: 15px;
+      }
+      
+      .contact-header h1 {
+        font-size: 2rem;
+      }
+      
+      .contact-form,
+      .faq-section {
+        padding: 25px;
+      }
+      
+      .contact-methods {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="font-poppins">
+  <div class="contact-container">
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i>
+      Back to SaveX
+    </a>
+    
+    <div class="contact-header">
+      <h1><i class="fas fa-envelope"></i> Contact Us</h1>
+      <p>We'd love to hear from you! Whether you have questions, feedback, or need support, our team is here to help. Reach out to us using any of the methods below.</p>
+    </div>
+    
+    <div class="contact-methods">
+      <div class="contact-method">
+        <i class="fas fa-envelope"></i>
+        <h3>Email Support</h3>
+        <p>Get help with any questions or issues you're experiencing.</p>
+        <a href="mailto:VirgeesCUmail@gmail.com">VirgeesCUmail@gmail.com</a>
+      </div>
+      
+      <div class="contact-method">
+        <i class="fas fa-bug"></i>
+        <h3>Report a Bug</h3>
+        <p>Found a bug? Let us know so we can fix it quickly.</p>
+        <a href="mailto:VirgeesCUmail@gmail.com?subject=Bug Report - SaveX">Report Bug</a>
+      </div>
+      
+      <div class="contact-method">
+        <i class="fas fa-lightbulb"></i>
+        <h3>Feature Request</h3>
+        <p>Have an idea for a new feature? We'd love to hear it!</p>
+        <a href="mailto:VirgeesCUmail@gmail.com?subject=Feature Request - SaveX">Suggest Feature</a>
+      </div>
+      
+      <div class="contact-method">
+        <i class="fas fa-star"></i>
+        <h3>Feedback</h3>
+        <p>Share your thoughts and help us improve SaveX.</p>
+        <a href="mailto:VirgeesCUmail@gmail.com?subject=Feedback - SaveX">Send Feedback</a>
+      </div>
+    </div>
+    
+    <div class="contact-form">
+      <h2><i class="fas fa-paper-plane"></i> Send us a Message</h2>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject *</label>
+          <select id="subject" name="subject" required>
+            <option value="">Select a subject</option>
+            <option value="general">General Inquiry</option>
+            <option value="support">Technical Support</option>
+            <option value="bug">Bug Report</option>
+            <option value="feature">Feature Request</option>
+            <option value="feedback">Feedback</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" placeholder="Please describe your question, issue, or feedback in detail..." required></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </div>
+    
+    <div class="faq-section">
+      <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">How do I backup my data?</div>
+        <div class="faq-answer">You can export your data from the Settings page. Go to Settings > Data Management > Export Data to download a backup file.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Can I use SaveX on multiple devices?</div>
+        <div class="faq-answer">SaveX stores data locally on your device. To sync data between devices, you can export from one device and import to another using the backup feature.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Is my financial data secure?</div>
+        <div class="faq-answer">Yes! SaveX stores all your data locally on your device. We don't collect or store any of your financial information on our servers.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">How do I add custom saving methods?</div>
+        <div class="faq-answer">Go to Settings > Manage Methods, enter a new method name in the input field, and click "Add" to create a custom saving method.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Can I change the app's appearance?</div>
+        <div class="faq-answer">Yes! You can customize the theme color, font, and enable dark mode from the Settings > Appearance section.</div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Create email body
+      const emailBody = `Name: ${name}%0D%0AEmail: ${email}%0D%0ASubject: ${subject}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(message)}`;
+      
+      // Create mailto link
+      const mailtoLink = `mailto:VirgeesCUmail@gmail.com?subject=SaveX Contact Form - ${subject}&body=${emailBody}`;
+      
+      // Open email client
+      window.location.href = mailtoLink;
+      
+      // Show success message
+      alert('Thank you for your message! Your email client should open with the pre-filled message. Please send it to complete your inquiry.');
+      
+      // Reset form
+      this.reset();
+    });
+  </script>
+</body>
+</html>
+

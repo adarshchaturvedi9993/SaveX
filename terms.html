@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service - SaveX</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sohne@1.0.0/sohne.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon"><i class="fas fa-file-contract"></i></div>
+      Terms of Service
+    </div>
+    
+    <div class="card">
+      <h2>Terms of Service for SaveX</h2>
+      <p>Last Updated: January 2024</p>
+      
+      <h3 style="margin-top: 15px;">1. Acceptance of Terms</h3>
+      <p>By downloading, accessing, or using the SaveX mobile application ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of the terms, then you may not access the Service.</p>
+      
+      <h3 style="margin-top: 15px;">2. Use of the Service</h3>
+      <p>SaveX is a personal finance management tool provided for your personal, non-commercial use. The Service allows you to track financial data which is stored locally on your device.</p>
+      
+      <h3 style="margin-top: 15px;">3. User Responsibilities</h3>
+      <p>You are responsible for all activities that occur within the app on your device. You are also solely responsible for regularly backing up your data using the app's export feature. We are not liable for any data loss that may occur.</p>
+
+      <h3 style="margin-top: 15px;">4. Advertisements</h3>
+      <p>As a condition of your use of the Service, you agree to receive advertisements, which are a fundamental part of providing the Service. These ads are served by third-party networks like Google AdMob.</p>
+
+      <h3 style="margin-top: 15px;">5. Limitation of Liability</h3>
+      <p>The Service is provided on an "as is" and "as available" basis. Virgees AdarshDev Pvt Ltd shall not be liable for any indirect, incidental, special, consequential or punitive damages, including but not limited to, loss of data, resulting from the use or the inability to use the Service.</p>
+      
+      <h3 style="margin-top: 15px;">6. Governing Law</h3>
+      <p>These Terms shall be governed and construed in accordance with the laws of India, without regard to its conflict of law provisions.</p>
+      
+      <h3 style="margin-top: 15px;">7. Contact Us</h3>
+      <p>If you have any questions about these Terms, please contact us at <a href="mailto:VirgeesCUmail@gmail.com">VirgeesCUmail@gmail.com</a>.</p>
+    </div>
+  </div>
+  
+  <div class="bottom-nav">
+    <div class="nav-item" onclick="navigateTo('index.html')">
+      <i class="fas fa-home nav-icon"></i>
+      <span class="nav-label">Home</span>
+    </div>
+  </div>
+  
+  <script>
+    function navigateTo(url) {
+      window.location.href = url;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const body = document.body;
+      const darkMode = localStorage.getItem('darkMode') === 'true';
+      if (darkMode) body.classList.add('dark-mode');
+      const theme = localStorage.getItem('selectedTheme') || 'default';
+      if (theme !== 'default') body.classList.add(`theme-${theme}`);
+      const font = localStorage.getItem('selectedFont') || 'poppins';
+      body.classList.forEach(c => c.startsWith('font-') && body.classList.remove(c));
+      body.classList.add(`font-${font}`);
+    });
+  </script>
+</body>
+</html>

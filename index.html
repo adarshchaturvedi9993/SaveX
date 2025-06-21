@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>SaveX - Your Digital Savings Companion</title>
+    <meta name="description" content="Track your savings and expenses effortlessly with complete privacy. Your digital piggy bank and expense tracker in one place.">
+    <meta name="keywords" content="savings, expense tracker, budget, finance, money manager, pwa, offline">
+    <meta name="author" content="Virgees AdarshDev Pvt Ltd">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4361ee">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SaveX">
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/png" href="SaveX.png">
+    <link rel="apple-touch-icon" href="SaveX.png">
+
+    <!-- External CSS & Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sohne@1.0.0/sohne.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_CLIENT_ID"
+     crossorigin="anonymous"></script>
+</head>
+<body class="font-poppins">
+
+    <div class="container">
+
+        <!-- ==================== HOME SECTION ==================== -->
+        <div id="homeSection">
+            <div class="header">
+                <div class="header-icon"><i class="fas fa-wallet"></i></div>
+                SaveX Dashboard
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-piggy-bank"></i> Total Savings</div>
+                <div class="total-amount">₹<span id="totalAmount">0</span></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-plus-circle"></i> Add New Saving</div>
+                <div class="form-group">
+                    <label for="savingAmount" class="form-label">Amount</label>
+                    <input type="number" id="savingAmount" placeholder="e.g., 1000">
+                </div>
+                <div class="form-group">
+                    <label for="savingNote" class="form-label">Note (Optional)</label>
+                    <input type="text" id="savingNote" placeholder="e.g., Pocket Money">
+                </div>
+                <div class="method-selector">
+                    <label class="form-label">Method</label>
+                    <div class="method-options">
+                        <div class="method-option" data-value="SaveX" onclick="selectMethod(this, 'SaveX')">
+                            <div class="method-icon"><i class="fas fa-piggy-bank"></i></div>
+                            <div class="method-name">SaveX</div>
+                        </div>
+                        <div class="method-option" data-value="Bank" onclick="selectMethod(this, 'Bank')">
+                            <div class="method-icon"><i class="fas fa-university"></i></div>
+                            <div class="method-name">Bank</div>
+                        </div>
+                        <div class="method-option" data-value="Cash" onclick="selectMethod(this, 'Cash')">
+                            <div class="method-icon"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="method-name">Cash</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="savingMethod">
+                </div>
+                <button onclick="addSaving()"><i class="fas fa-check"></i> Add Saving</button>
+            </div>
+
+            <div class="recent-activity-container">
+                <div class="card-title"><i class="fas fa-history"></i> Recent Activity</div>
+                <div id="recentActivity">
+                    <!-- Recent activity items will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PROFIT & LOSS SECTION ==================== -->
+        <div id="plSection" class="hidden">
+            <div class="header">
+                <div class="header-icon"><i class="fas fa-chart-line"></i></div>
+                Profit & Loss
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-calendar-day"></i> Daily Summary</div>
+                <div class="form-group">
+                    <label for="dailySummaryDate" class="form-label">Select Date</label>
+                    <input type="date" id="dailySummaryDate">
+                </div>
+                <div class="daily-summary-grid">
+                    <div class="day-summary-item">
+                        <div class="day-summary-label">Start of Day</div>
+                        <div class="day-summary-value" id="startOfDay">₹0</div>
+                    </div>
+                    <div class="day-summary-item">
+                        <div class="day-summary-label">End of Day</div>
+                        <div class="day-summary-value" id="endOfDay">₹0</div>
+                    </div>
+                    <div class="day-summary-item highlight">
+                        <div class="day-summary-label">Day's Profit / Loss</div>
+                        <div class="day-summary-value" id="dayProfit">₹0</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="border-color: var(--success);">
+                <div class="card-title"><i class="fas fa-exchange-alt"></i> Add Transaction</div>
+                <div id="plTypeToggle" class="pl-type-toggle">
+                    <button class="active" data-type="earning"><i class="fas fa-arrow-up"></i> Earning</button>
+                    <button data-type="expense"><i class="fas fa-arrow-down"></i> Expense</button>
+                </div>
+                <div class="form-group">
+                    <label for="plAmount" class="form-label">Amount</label>
+                    <input type="number" id="plAmount" placeholder="e.g., 500">
+                </div>
+                <div class="form-group">
+                    <label for="plNote" class="form-label">Note (Optional)</label>
+                    <input type="text" id="plNote" placeholder="e.g., Salary, Lunch">
+                </div>
+                <button id="addPLBtn" class="add-pl-btn earning" onclick="addPLTransaction()">
+                    <i class="fas fa-plus"></i> Add Earning
+                </button>
+            </div>
+            
+            <div class="card">
+                <div class="card-title"><i class="fas fa-balance-scale"></i> Overall Summary</div>
+                <div class="pl-summary">
+                    <div class="pl-item earning">
+                        <span>Total Earnings</span>
+                        <span class="pl-amount" id="totalEarnings">₹0</span>
+                    </div>
+                    <div class="pl-item expense">
+                        <span>Total Expenses</span>
+                        <span class="pl-amount" id="totalExpenses">₹0</span>
+                    </div>
+                    <div class="pl-item net">
+                        <span>Net P/L</span>
+                        <span class="pl-amount" id="netProfitLoss">₹0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-activity-container">
+                <div class="card-title"><i class="fas fa-list-ul"></i> P/L History</div>
+                <div id="plHistory">
+                    <!-- P/L history items will be injected here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- ==================== HISTORY SECTION ==================== -->
+        <div id="historySection" class="hidden">
+            <div class="header">
+                <div class="header-icon"><i class="fas fa-book-open"></i></div>
+                Full History
+            </div>
+            
+            <div class="card">
+                <div class="card-title"><i class="fas fa-filter"></i> Filter & Sort</div>
+                <div id="historyFilterControls" class="history-filters">
+                    <select id="sortMethod" onchange="sortHistory()">
+                        <option value="">All Methods</option>
+                        <option value="SaveX">SaveX</option>
+                        <option value="Bank">Bank</option>
+                        <option value="Cash">Cash</option>
+                    </select>
+                    <select id="sortMonth" onchange="sortHistory()">
+                        <option value="">All Months</option>
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-chart-pie"></i> Totals by Method</div>
+                <div id="methodTotals" class="method-totals">
+                    <!-- Method totals will be injected here -->
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title"><i class="fas fa-list"></i> All Transactions</div>
+                <div class="history-table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Method</th>
+                                <th>Note</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTable">
+                            <!-- History rows will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SETTINGS SECTION ==================== -->
+        <div id="settingsSection" class="hidden">
+            <div class="header">
+                <div class="header-icon"><i class="fas fa-cog"></i></div>
+                Settings
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-paint-brush"></i> Appearance</div>
+                <div class="settings-option" onclick="showThemeModal()">
+                    <div class="settings-info">
+                        <div class="settings-title">Change Theme</div>
+                        <div class="settings-desc">Customize the app's color scheme.</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="settings-option" onclick="showFontModal()">
+                    <div class="settings-info">
+                        <div class="settings-title">Change Font</div>
+                        <div class="settings-desc">Select a font that you like.</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="settings-option">
+                    <div class="settings-info">
+                        <div class="settings-title">Dark Mode</div>
+                        <div class="settings-desc">Reduce eye strain in low light.</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i class="fas fa-database"></i> Data Management</div>
+                <div class="settings-option" onclick="exportData()">
+                    <div class="settings-info">
+                        <div class="settings-title">Export Data</div>
+                        <div class="settings-desc">Save a backup of your data.</div>
+                    </div>
+                    <i class="fas fa-download"></i>
+                </div>
+                <div class="settings-option">
+                    <div class="settings-info">
+                        <div class="settings-title">Import Data</div>
+                        <div class="settings-desc">Restore from a backup file.</div>
+                    </div>
+                    <label for="importFile" class="info-link" style="cursor: pointer;">
+                        <i class="fas fa-upload"></i>
+                    </label>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                </div>
+                <div class="settings-option" onclick="showModal('manageMethodsModal')">
+                    <div class="settings-info">
+                        <div class="settings-title">Manage Methods</div>
+                        <div class="settings-desc">Add, edit, or delete saving methods.</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="settings-option" onclick="confirmReset()">
+                    <div class="settings-info">
+                        <div class="settings-title" style="color: var(--danger);">Reset App</div>
+                        <div class="settings-desc">Deletes all data permanently.</div>
+                    </div>
+                    <i class="fas fa-trash-alt" style="color: var(--danger);"></i>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title"><i class="fas fa-info-circle"></i> About & Help</div>
+                <a href="about.html" class="settings-option" style="text-decoration: none; color: inherit;">
+                    <div class="settings-info">
+                        <div class="settings-title">About SaveX</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="help.html" class="settings-option" style="text-decoration: none; color: inherit;">
+                    <div class="settings-info">
+                        <div class="settings-title">Help & FAQ</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="contact.html" class="settings-option" style="text-decoration: none; color: inherit;">
+                    <div class="settings-info">
+                        <div class="settings-title">Contact Us</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="privacy.html" class="settings-option" style="text-decoration: none; color: inherit;">
+                    <div class="settings-info">
+                        <div class="settings-title">Privacy Policy</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="terms.html" class="settings-option" style="border-bottom: none; text-decoration: none; color: inherit;">
+                    <div class="settings-info">
+                        <div class="settings-title">Terms of Service</div>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alertContainer" class="alert-container"></div>
+
+    <!-- Modals -->
+    <div id="themeModal" class="modal-overlay" onclick="hideModal()">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title">Select Theme</h3>
+                <button class="modal-close" onclick="hideModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="theme-selector">
+                    <div class="theme-option" data-theme="default" onclick="selectTheme('default')"><div class="theme-thumbnail" style="background: #4361ee;"></div><span>Default</span></div>
+                    <div class="theme-option" data-theme="green" onclick="selectTheme('green')"><div class="theme-thumbnail" style="background: #2ecc71;"></div><span>Green</span></div>
+                    <div class="theme-option" data-theme="purple" onclick="selectTheme('purple')"><div class="theme-thumbnail" style="background: #9b59b6;"></div><span>Purple</span></div>
+                    <div class="theme-option" data-theme="orange" onclick="selectTheme('orange')"><div class="theme-thumbnail" style="background: #e67e22;"></div><span>Orange</span></div>
+                    <div class="theme-option" data-theme="pink" onclick="selectTheme('pink')"><div class="theme-thumbnail" style="background: #e84393;"></div><span>Pink</span></div>
+                    <div class="theme-option" data-theme="teal" onclick="selectTheme('teal')"><div class="theme-thumbnail" style="background: #00cec9;"></div><span>Teal</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fontModal" class="modal-overlay" onclick="hideModal()">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title">Select Font</h3>
+                <button class="modal-close" onclick="hideModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="font-selector">
+                    <div class="font-option font-poppins" data-font="poppins" onclick="selectFont('poppins')">Poppins</div>
+                    <div class="font-option font-montserrat" data-font="montserrat" onclick="selectFont('montserrat')">Montserrat</div>
+                    <div class="font-option font-roboto" data-font="roboto" onclick="selectFont('roboto')">Roboto</div>
+                    <div class="font-option font-opensans" data-font="opensans" onclick="selectFont('opensans')">Open Sans</div>
+                    <div class="font-option font-sohne" data-font="sohne" onclick="selectFont('sohne')">Sohne</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="manageMethodsModal" class="modal-overlay" onclick="hideModal()">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title">Manage Methods</h3>
+                <button class="modal-close" onclick="hideModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="methodList" class="method-list"></div>
+                <div class="form-group">
+                    <label for="newMethodInput" class="form-label">Add New Method</label>
+                    <input type="text" id="newMethodInput" placeholder="e.g., Digital Wallet">
+                </div>
+                <button onclick="addNewMethod()">Add Method</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal-overlay" onclick="hideModal()">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Confirm</h3>
+                <button class="modal-close" onclick="hideModal()">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" onclick="hideModal()">Cancel</button>
+                <button class="danger" id="confirmActionBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="methodEditModal" class="modal-overlay" onclick="hideModal()">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title" id="methodModalTitle">Edit</h3>
+                <button class="modal-close" onclick="hideModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Content injected by JS -->
+            </div>
+            <div class="modal-footer">
+                <button class="secondary" onclick="hideModal()">Cancel</button>
+                <button id="saveMethodBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Placeholder -->
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_ADSENSE_CLIENT_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- Magic Navigation -->
+    <div class="navigation">
+        <ul>
+            <li class="active" data-section="home" onclick="showSection('home')">
+                <a>
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span class="text">Home</span>
+                </a>
+            </li>
+            <li data-section="pl" onclick="showSection('pl')">
+                <a>
+                    <span class="icon"><i class="fas fa-chart-line"></i></span>
+                    <span class="text">P & L</span>
+                </a>
+            </li>
+            <li data-section="history" onclick="showSection('history')">
+                <a>
+                    <span class="icon"><i class="fas fa-history"></i></span>
+                    <span class="text">History</span>
+                </a>
+            </li>
+            <li data-section="settings" onclick="showSection('settings')">
+                <a>
+                    <span class="icon"><i class="fas fa-cog"></i></span>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <div class="indicator"></div>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('ServiceWorker registration successful with scope: ', registration.scope))
+                    .catch(err => console.log('ServiceWorker registration failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>

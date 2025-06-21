@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About SaveX - Your Savings App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sohne@1.0.0/sohne.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon"><i class="fas fa-info-circle"></i></div>
+      About SaveX
+    </div>
+    
+    <div class="card">
+      <div class="about-section">
+        <h2>Your Digital Savings Companion</h2>
+        <p>SaveX helps you track savings and expenses effortlessly, giving you better financial control.</p>
+        
+        <div class="app-features" style="display: flex; gap: 15px; margin-top: 20px; text-align: center;">
+          <div class="feature" style="flex: 1;">
+            <i class="fas fa-piggy-bank" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+            <h3>Track Savings</h3>
+            <p>Monitor savings across cash, bank, and digital wallets.</p>
+          </div>
+          <div class="feature" style="flex: 1;">
+            <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+            <h3>Visualize Progress</h3>
+            <p>View financial growth through intuitive charts.</p>
+          </div>
+          <div class="feature" style="flex: 1;">
+            <i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+            <h3>Privacy First</h3>
+            <p>Your data is stored securely on your device only.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="company-section" style="margin-top: 30px;">
+        <h2>About Virgees AdarshDev Pvt Ltd</h2>
+        <p>We create simple yet powerful tools that make everyday life easier. Our mission is to empower individuals through accessible technology.</p>
+        
+        <div class="contact-info" style="margin-top: 20px;">
+          <p><i class="fas fa-map-marker-alt"></i> Beohari, Distt - Shahdol, 484774, MP, India</p>
+          <p><i class="fas fa-envelope"></i> <a href="mailto:VirgeesCUmail@gmail.com">VirgeesCUmail@gmail.com</a></p>
+          <p><i class="fas fa-paper-plane"></i> Telegram: <a href="https://t.me/VirgeesAdarshDevPvtLtd" target="_blank">@VirgeesAdarshDevPvtLtd</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bottom-nav">
+    <div class="nav-item" onclick="navigateTo('index.html')">
+      <i class="fas fa-home nav-icon"></i>
+      <span class="nav-label">Home</span>
+    </div>
+  </div>
+  
+  <script>
+    // Function to handle navigation
+    function navigateTo(url) {
+      window.location.href = url;
+    }
+
+    // Apply theme and font settings from localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const body = document.body;
+      
+      // Apply Dark Mode
+      const darkMode = localStorage.getItem('darkMode') === 'true';
+      if (darkMode) {
+        body.classList.add('dark-mode');
+      }
+
+      // Apply Theme
+      const theme = localStorage.getItem('selectedTheme') || 'default';
+      if (theme !== 'default') {
+        body.classList.add(`theme-${theme}`);
+      }
+
+      // Apply Font
+      const font = localStorage.getItem('selectedFont') || 'poppins';
+      body.classList.forEach(className => {
+        if (className.startsWith('font-')) {
+          body.classList.remove(className);
+        }
+      });
+      body.classList.add(`font-${font}`);
+    });
+  </script>
+</body>
+</html>
